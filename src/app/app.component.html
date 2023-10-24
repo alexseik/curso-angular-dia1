@@ -6,21 +6,30 @@
       type="number"
       id="candidate-skill"
       (input)="changeInput($event)"
-      [value]="candidateName"
+      [value]="selectedCandidate?.experience"
     />
   </div>
+  <button (click)="toggleDirection()">Cambiar lista</button>
   <div>
-    <app-candidate
-      [candidate]="candidates[0]"
-      (select)="selectCandidate($event)"
-    ></app-candidate>
-    <app-candidate
-      [candidate]="candidates[1]"
-      (select)="selectCandidate($event)"
-    ></app-candidate>
-    <app-candidate
-      [candidate]="candidates[2]"
-      (select)="selectCandidate($event)"
-    ></app-candidate>
+    <h3>
+      Número de candidatos <span>{{ getCandidatesLength() }}</span>
+    </h3>
+  </div>
+  <div>
+    <app-candidate-list #list>
+      <h2 title>Lista de candidatos</h2>
+      <app-candidate
+        [candidate]="candidates[0]"
+        (select)="selectCandidate($event)"
+      ></app-candidate>
+      <app-candidate
+        [candidate]="candidates[1]"
+        (select)="selectCandidate($event)"
+      ></app-candidate>
+      <app-candidate
+        [candidate]="candidates[2]"
+        (select)="selectCandidate($event)"
+      ></app-candidate>
+    </app-candidate-list>
   </div>
 </div>

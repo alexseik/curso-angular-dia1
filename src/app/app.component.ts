@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ViewChildren } from '@angular/core';
 import { Candidate } from './models/candidate.model';
+import { CandidateListComponent } from './components/candidate-list/candidate-list.component';
+import { CandidateComponent } from './components/candidate/candidate.component';
 
 @Component({
   selector: 'app-root',
@@ -7,17 +9,40 @@ import { Candidate } from './models/candidate.model';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  @ViewChild('list') list!: CandidateListComponent;
+
+  @ViewChildren(CandidateComponent)
+  private candidateComps!: CandidateComponent[];
+
   title = 'angular-101-day1';
 
-  _candidateName = '';
+  private _candidateName = '';
 
-  get candidateName() {
-    return this._candidateName;
+  selectedCandidate: Candidate | null = null;
+
+  get candidateName(): string {
+    return this.selectedCandidate ? this.selectedCandidate.name : '';
   }
 
-  set candidateName(value) {
-    this._candidateName = value;
-  }
+  // get candidateExperience(): number {
+  //   return this.selectedCandidate ? this.selectedCandidate.experience : 0;
+  // }
+
+  // set candidateExperience(experience: number) {
+  //   debugger;
+  //   if (this.selectedCandidate) {
+  //     const candidateIndex = this.candidates.findIndex(
+  //       (c) => c.name === this.selectedCandidate?.name
+  //     );
+  //     if (candidateIndex > -1) {
+  //       this.candidates[candidateIndex] = Object.assign(
+  //         {},
+  //         this.candidates[candidateIndex],
+  //         { experience }
+  //       );
+  //     }
+  //   }
+  // }
 
   candidates: Candidate[] = [
     {
@@ -46,11 +71,35 @@ export class AppComponent {
     },
   ];
 
-  selectCandidate(event: Candidate) {
-    this.candidateName = event.name;
+  selectCandidate(candidate: Candidate) {
+    this.selectedCandidate = candidate;
   }
 
   changeInput(event: any) {
-    console.log('input', event);
+    const experience = parseInt(event.target.value);
+    if (this.selectedCandidate) {
+      const candidateIndex = this.candidates.findIndex(
+        (c) => c.name === this.selectedCandidate?.name
+      );
+      if (candidateIndex > -1) {
+        this.candidates[candidateIndex] = Object.assign(
+          {},
+          this.candidates[candidateIndex],
+          { experience }
+        );
+      }
+    }
+    // this.candidateExperience = parseInt(event.target.value);
+  }
+
+  toggleDirection() {
+    this.list.toggleDirection();
+  }
+
+  getCandidatesLength() {
+    debugger;
+    return !!this.candidateComps && 'length' in this.candidateComps
+      ? this.candidateComps.length
+      : 0;
   }
 }

@@ -19,76 +19,67 @@ import { Candidate } from 'src/app/models/candidate.model';
   selector: 'app-candidate',
   templateUrl: './candidate.component.html',
   styleUrls: ['./candidate.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
-export class CandidateComponent
-  implements
-    OnChanges,
-    OnInit,
-    DoCheck,
-    AfterContentInit,
-    AfterContentChecked,
-    AfterViewChecked,
-    OnDestroy
-{
-  @Input() candidate!: Candidate;
+export class CandidateComponent implements OnChanges, OnInit, OnDestroy {
+  // @Input() candidate!: Candidate;
+  private _candidate!: Candidate;
 
-  @Output() select = new EventEmitter();
+  colorStyle = '';
+  cssClasses = {
+    'candidate-card': true,
+    senior: false,
+    junior: false,
+  };
+
+  @Input()
+  set candidate(candidate: Candidate) {
+    this._candidate = candidate;
+    const index = candidate.name.indexOf(' ');
+    // this.name = candidate.name.slice(0, index);
+    //  this.surname = candidate.name.slice(index);
+
+    if (candidate.age < 18) {
+      throw new Error('El candidato debe ser mayor de edad');
+    }
+    this.cssClasses = {
+      'candidate-card': true,
+      senior: candidate.experience < 3,
+      junior: candidate.experience > 5,
+    };
+    this.colorStyle = candidate.experience <= 5 ? 'black' : 'white';
+  }
+  get candidate() {
+    return this._candidate;
+  }
+
+  @Output() select = new EventEmitter<Candidate>();
 
   constructor() {}
   ngOnDestroy(): void {
     console.log('OnDestroy');
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log({ changes });
+    let log: string = '';
+    for (const propName in changes) {
+      const changedProp = changes[propName];
+      const to = JSON.stringify(changedProp.currentValue);
+      if (changedProp.isFirstChange()) {
+        log = `Initial value of ${propName} set to ${to}`;
+      } else {
+        const from = JSON.stringify(changedProp.previousValue);
+        log = `${propName} changed from ${from} to ${to}`;
+      }
+    }
+    console.log('OnChanges', log);
   }
 
   ngOnInit(): void {
-    console.log('OnInit');
     console.log('OnInit', { candidate: this.candidate });
-  }
-  ngDoCheck(): void {
-    console.log('DoCheck');
-  }
-  ngAfterContentInit(): void {
-    console.log('AfterContentInit');
-  }
-  ngAfterContentChecked(): void {
-    console.log('AfterContentChecked');
-  }
-  ngAfterViewChecked(): void {
-    console.log('AfterViewChecked');
   }
 
   doEdit() {
     this.select.emit(this.candidate);
   }
-
-  // 1. devolver un string
-  // classExpression = 'candidate-card junior';
-  // candidateClases = () => {
-  //   if (this.candidate.experience < 3) {
-  //     return 'candidate-card junior';
-  //   } else if (this.candidate.experience > 5) {
-  //     return 'candidate-card senior';
-  //   } else {
-  //     return 'candidate-card';
-  //   }
-  // };
-
-  // 2. devolver un obj
-  // classExpression = {
-  //   'candidate-card': true,
-  //   junior: true,
-  // };
-  // candidateClasses() {
-  //   return {
-  //     'candidate-card': true,
-  //     senior: this.candidate.experience < 3,
-  //     junior: this.candidate.experience > 5,
-  //   };
-  // }
-
   // e. devolver array de strings
   candidateClasses(): string[] {
     const classes = [];

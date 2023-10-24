@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { CandidateComponent } from './components/candidate/candidate.component';
+import { CandidateListComponent } from './components/candidate-list/candidate-list.component';
 
 describe('AppComponent', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      declarations: [AppComponent, CandidateComponent],
+      declarations: [AppComponent, CandidateComponent, CandidateListComponent],
     })
   );
 

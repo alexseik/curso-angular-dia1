@@ -1,0 +1,9 @@
+.candidate-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  &.reverse {
+    flex-direction: row-reverse;
+  }
+}
