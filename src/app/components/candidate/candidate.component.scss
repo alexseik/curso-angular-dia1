@@ -1,0 +1,13 @@
+.candidate-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  &.junior {
+    background-color: #8cc0f7;
+  }
+  &.senior {
+    background-color: #f74131;
+  }
+}
