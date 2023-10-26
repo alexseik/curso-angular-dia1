@@ -36,8 +36,7 @@ describe('CandidateComponent', () => {
     expect(compiled.querySelector('h2')?.textContent).toContain('Alex');
   });
 
-  it('should render white color for senior', () => {
-    //
+  fit('should render white color for senior', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('div')?.style.color).toContain('white');
   });

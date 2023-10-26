@@ -97,7 +97,6 @@ export class AppComponent {
   }
 
   getCandidatesLength() {
-    debugger;
     return !!this.candidateComps && 'length' in this.candidateComps
       ? this.candidateComps.length
       : 0;
