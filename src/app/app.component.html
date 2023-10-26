@@ -21,7 +21,11 @@
   <div>
     <button (click)="removeCandidate()">Borrar Candidato</button>
   </div>
+  <div>
+    <button (click)="createCandidate()">Crear candidato aleatorio</button>
+  </div>
   <button (click)="toggleDirection()">Cambiar lista</button>
+
   <div>
     <h3>
       Número de candidatos <span>{{ getCandidatesLength() }}</span>
@@ -34,6 +38,7 @@
         <app-candidate
           [candidate]="candidate"
           (select)="selectCandidate($event)"
+          (remove)="removeCandidate2($event)"
         ></app-candidate>
       </div>
     </app-candidate-list>

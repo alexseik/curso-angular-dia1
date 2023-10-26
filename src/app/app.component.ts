@@ -119,6 +119,26 @@ export class AppComponent {
     }
   }
 
+  removeCandidate2(event: Candidate) {
+    const candidateIndex = this.candidates.findIndex((c) => c.id === event.id);
+    if (candidateIndex > -1) {
+      this.candidates.splice(candidateIndex, 1);
+    }
+  }
+
+  createCandidate() {
+    debugger;
+    const newCandidate: Candidate = {
+      id: this.candidates.length + 1,
+      name: 'asdf adsfasd fa',
+      age: 18,
+      position: 'as dfasdf asdf',
+      experience: 3,
+      skills: [],
+    };
+    this.candidates.push(newCandidate);
+  }
+
   toggleDirection() {
     this.list.toggleDirection();
   }

@@ -53,6 +53,7 @@ export class CandidateComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   @Output() select = new EventEmitter<Candidate>();
+  @Output() remove = new EventEmitter<Candidate>();
 
   constructor() {}
   ngOnDestroy(): void {
@@ -79,6 +80,10 @@ export class CandidateComponent implements OnChanges, OnInit, OnDestroy {
 
   doEdit() {
     this.select.emit(this.candidate);
+  }
+
+  doRemove() {
+    this.remove.emit(this.candidate);
   }
   // e. devolver array de strings
   candidateClasses(): string[] {
