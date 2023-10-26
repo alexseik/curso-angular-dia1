@@ -29,6 +29,7 @@ export class CandidateComponent implements OnChanges, OnInit, OnDestroy {
     'candidate-card': true,
     senior: false,
     junior: false,
+    animate: false,
   };
 
   @Input()
@@ -41,10 +42,12 @@ export class CandidateComponent implements OnChanges, OnInit, OnDestroy {
     if (candidate.age < 18) {
       throw new Error('El candidato debe ser mayor de edad');
     }
+
     this.cssClasses = {
       'candidate-card': true,
       senior: candidate.experience < 3,
       junior: candidate.experience > 5,
+      animate: false,
     };
     this.colorStyle = candidate.experience <= 5 ? 'black' : 'white';
   }
@@ -80,6 +83,10 @@ export class CandidateComponent implements OnChanges, OnInit, OnDestroy {
 
   doEdit() {
     this.select.emit(this.candidate);
+    this.cssClasses.animate = true;
+    setTimeout(() => {
+      this.cssClasses.animate = false;
+    }, 500);
   }
 
   doRemove() {
