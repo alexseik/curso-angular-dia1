@@ -79,7 +79,7 @@ export class AppComponent {
     const experience = parseInt(event.target.value);
     if (this.selectedCandidate) {
       const candidateIndex = this.candidates.findIndex(
-        (c) => c.name === this.selectedCandidate?.name
+        (c) => c.id === this.selectedCandidate?.id
       );
       if (candidateIndex > -1) {
         this.candidates[candidateIndex] = Object.assign(
@@ -90,6 +90,23 @@ export class AppComponent {
       }
     }
     // this.candidateExperience = parseInt(event.target.value);
+  }
+
+  changeName(event: any) {
+    debugger;
+    const newName = event.target.value;
+    if (this.selectedCandidate) {
+      const candidateIndex = this.candidates.findIndex(
+        (c) => c.id === this.selectedCandidate?.id
+      );
+      if (candidateIndex > -1) {
+        this.candidates[candidateIndex] = Object.assign(
+          {},
+          this.candidates[candidateIndex],
+          { name: newName }
+        );
+      }
+    }
   }
 
   toggleDirection() {

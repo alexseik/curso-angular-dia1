@@ -9,6 +9,15 @@
       [value]="selectedCandidate?.experience"
     />
   </div>
+  <div>
+    <label for="candidate-name">Candidate Name</label>
+    <input
+      type="text"
+      id="candidate-name"
+      (input)="changeName($event)"
+      [value]="selectedCandidate?.name"
+    />
+  </div>
   <button (click)="toggleDirection()">Cambiar lista</button>
   <div>
     <h3>
