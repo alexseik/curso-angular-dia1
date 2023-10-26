@@ -18,6 +18,9 @@
       [value]="selectedCandidate?.name"
     />
   </div>
+  <div>
+    <button (click)="removeCandidate()">Borrar Candidato</button>
+  </div>
   <button (click)="toggleDirection()">Cambiar lista</button>
   <div>
     <h3>
@@ -27,18 +30,12 @@
   <div>
     <app-candidate-list #list>
       <h2 title>Lista de candidatos</h2>
-      <app-candidate
-        [candidate]="candidates[0]"
-        (select)="selectCandidate($event)"
-      ></app-candidate>
-      <app-candidate
-        [candidate]="candidates[1]"
-        (select)="selectCandidate($event)"
-      ></app-candidate>
-      <app-candidate
-        [candidate]="candidates[2]"
-        (select)="selectCandidate($event)"
-      ></app-candidate>
+      <div *ngFor="let candidate of candidates">
+        <app-candidate
+          [candidate]="candidate"
+          (select)="selectCandidate($event)"
+        ></app-candidate>
+      </div>
     </app-candidate-list>
   </div>
 </div>

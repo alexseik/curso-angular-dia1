@@ -93,7 +93,6 @@ export class AppComponent {
   }
 
   changeName(event: any) {
-    debugger;
     const newName = event.target.value;
     if (this.selectedCandidate) {
       const candidateIndex = this.candidates.findIndex(
@@ -105,6 +104,17 @@ export class AppComponent {
           this.candidates[candidateIndex],
           { name: newName }
         );
+      }
+    }
+  }
+
+  removeCandidate() {
+    if (this.selectedCandidate) {
+      const candidateIndex = this.candidates.findIndex(
+        (c) => c.id === this.selectedCandidate?.id
+      );
+      if (candidateIndex > -1) {
+        this.candidates.splice(candidateIndex, 1);
       }
     }
   }
